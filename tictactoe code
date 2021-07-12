@@ -1,0 +1,201 @@
+#Checking Who is the winner
+def win_check(test_board, player1_win , player2_win):
+    win = 'False'
+
+    # Way-1
+    if test_board[1] == test_board[2] == test_board[3] ==player1_win:
+        print("Hurray!!! Player1 has won the Game ;) ")
+        win = 'yes'
+        return win
+           
+    elif test_board[1] == test_board[2] == test_board[3] ==player2_win:
+        print("Hurray!!! Player2 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    # Way-
+    elif test_board[4] == test_board[5] == test_board[6] ==player1_win:
+        print("Hurray!!! Player1 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    elif test_board[4] == test_board[5] == test_board[6] ==player2_win:
+        print("Hurray!!! Player2 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    # Way-3
+    elif test_board[7] == test_board[8] == test_board[9] ==player1_win:
+        print("Hurray!!! Player1 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    elif test_board[7] == test_board[8] == test_board[9] ==player2_win:
+        print("Hurray!!! Player2 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+
+    # Way-4
+    elif test_board[1] == test_board[4] == test_board[7] ==player1_win:
+        print("Hurray!!! Player1 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    elif test_board[7] == test_board[4] == test_board[1] ==player2_win:
+        print("Hurray!!! Player2 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    # Way-5
+    elif test_board[2] == test_board[8] == test_board[5] ==player1_win:
+        print("Hurray!!! Player1 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    elif test_board[2] == test_board[8] == test_board[5] ==player2_win:
+        print("Hurray!!! Player2 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    # Way-6
+    elif test_board[3] == test_board[6] == test_board[9] ==player1_win:
+        print("Hurray!!! Player1 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    elif test_board[3] == test_board[6] == test_board[9] ==player2_win:
+        print("Hurray!!! Player2 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+
+    # Way-7
+    elif test_board[1] == test_board[5] == test_board[9] ==player1_win:
+        print("Hurray!!! Player1 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    elif test_board[1] == test_board[5] == test_board[9] ==player2_win:
+        print("Hurray!!! Player2 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+
+    # Way-8
+    elif test_board[3] == test_board[5] == test_board[7] ==player1_win:
+        print("Hurray!!! Player1 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+    elif test_board[3] == test_board[5] == test_board[7] ==player2_win:
+        print("Hurray!!! Player2 has won the Game ;) ")
+        win = 'yes'
+        return win
+
+   
+
+#   Taking the input from the User
+def player_input(): 
+    marker=" "
+    while marker !='X' and marker != 'O':
+        marker=input(f"Player 1 Enter your choice: X or O: ")
+
+    Player1_choice = marker
+    if Player1_choice=='X':
+        player2_choice='O'
+    else:
+        player2_choice='X'
+
+    return (Player1_choice , player2_choice)
+        
+
+
+#Getting position from the user and place item there
+def place_marker(board_game, marker1, marker2, position1):
+    free_pos = ['',1,2,3,4,5,6,7,8,9]
+    new_list = set()
+    while True:  
+
+        
+        while True:
+            position1 = int(input("Player1 Choose your location: "))
+            if position1 in new_list or position1 not in free_pos :
+                print("Try Again, This location is already filled or wrong Input!!!")
+                continue
+
+            else:
+                
+                board_game[position1] = marker1
+                new_list.add(position1)
+                display_board(board_game)
+                wi = win_check(board_game, marker1 , marker2)
+                if wi == True:
+                    return
+                
+                    
+                elif len(new_list) == 9 :
+                    print("Oops!! No One Won the Game")
+                    return 
+                
+                break  
+
+        while True:
+            position2 = int(input("Player2 Choose your location: "))
+
+            if position2 in new_list or position2 not in free_pos :
+                print("Try Again, This location is already filled or wrong Input!!!")
+                continue
+
+            else:
+                win = 'no'
+                board_game[position2] = marker2
+                new_list.add(position2)
+                display_board(board_game)
+                wins = win_check(board_game, marker1 , marker2)
+                if wins:
+                    return
+                    
+                if len(new_list) == 9 :
+                    print("Oops!! No One Won the Game")
+                    return
+                break
+
+
+#Driver Code
+ #Asking Again if the User wants to play again
+Play_Again = input("Want to Play Again? (Y/N): ")
+if Play_Again == 'y':
+    key1 = True
+else:
+    exit() 
+
+while (key1):
+
+    #displaying board 
+    def display_board(board):
+        print('\n'*100)
+        print('|' + board[7] + '|'+ board[8] +'|'+ board[9])
+        print('|' + board[4] + '|'+ board[5] +'|'+ board[6])
+        print('|' + board[1] + '|'+ board[2] +'|'+ board[3])
+
+    board=[" "]*10
+
+
+    #Displaying Board
+    display_board(board)
+
+    #Taking the choice of User
+    player1 , player2= player_input()
+    print(f"Player1 Choses: {player1} and Player2 has : {player2}")
+
+
+    #Call the function to get the input and place item there!!!
+    place_marker(board , player1 ,player2 ,  0 )
+
+    #Asking Again if the User wants to play again
+    Play_Again = input("Want to Play Again? (Y/N): ")
+    if Play_Again == 'y':
+        key1 = True
+    else:
+        exit() 
