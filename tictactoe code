@@ -130,7 +130,7 @@ def place_marker(board_game, marker1, marker2, position1):
                 new_list.add(position1)
                 display_board(board_game)
                 wi = win_check(board_game, marker1 , marker2)
-                if wi == True:
+                if wi == "yes":
                     return
                 
                     
@@ -153,7 +153,7 @@ def place_marker(board_game, marker1, marker2, position1):
                 new_list.add(position2)
                 display_board(board_game)
                 wins = win_check(board_game, marker1 , marker2)
-                if wins:
+                if wins == "yes":
                     return
                     
                 if len(new_list) == 9 :
